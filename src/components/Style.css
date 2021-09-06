@@ -1,0 +1,17 @@
+#header{
+    height: 30vh;
+}
+#main{
+    display: block;
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.cardOfCharacter{
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    background-color: floralwhite;
+}
