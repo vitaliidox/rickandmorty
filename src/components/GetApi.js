@@ -1,15 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Card from './Card';
+import CardPublic from './CardPublic';
 import './Style.css'
 
-function GetApi() {
+function GetApi(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [state, setState] = useState();
   const [pageNumber, setPageNumber] = useState(1)
-
+ 
   useEffect(() => {
+    setPageNumber(props)
+    console.log(props)
     fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}`)
       .then((res) => res.json())
       .then(
@@ -22,27 +24,27 @@ function GetApi() {
           setError(error);
         },
       );
-    //add all dependecies
-  }, [], setIsLoaded, setState, setPageNumber); 
+  }, []); 
 
-  //remove else if an else
   if (error) {
     return <div>Ошибка: {error.message}</div>;
   } else if (!isLoaded) {
-    //move to component Loader
     return <div>Загрузка...</div>;
   } else {
+    
     return (
       <>
+      <div >
         {state.results.map((elem) => {
-          const { id, image, name, status, species, gender, location} = elem;
-          return (
-            <>
-              <Card {...elem}/>
-            </>
-          );
-        })}
-        {/* <FindCharacter props={state.results[0].name} /> */}
+            return (
+              <>
+              <div id="blockCards">
+                <CardPublic {...elem}/>
+              </div>
+              </>
+            );
+          })}
+        </div>
       </>
     );
   }
