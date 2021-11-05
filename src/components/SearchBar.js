@@ -1,14 +1,17 @@
-import { React, useState} from "react";
-import Card from "./CardPublic";
+import React, {useState, useContext} from "react";
+import CardPublic from "./CardPublic";
 import { Link } from "react-router-dom";
+import { NameContext } from "../App";
 
 
 
-function SearchBar(props) {
-  
+function SearchBar({newName}) {
+
+  const name = useContext(NameContext)
   const [data, setData] = useState();
-  const [name, setName] = useState()
+
  
+  
   function getCharacter() {
     fetch(`https://rickandmortyapi.com/api/character/?name=${name}`)
         .then((response) => response.json())
@@ -24,7 +27,7 @@ function SearchBar(props) {
 
           <div class="input-group input-group-lg col-4">
             <input
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e)=>newName(e.target.value)}
                 id="searchName"
                 type="text"
                 class="form-control m-0"
@@ -38,12 +41,10 @@ function SearchBar(props) {
               type="button"
               class="btn btn-danger h3 ml-2"
                 onClick={() => {
-                  getCharacter(name);
-                  console.log(document.getElementById("searchName").value)
                   if (document.getElementById("searchName").value  !== "") {
                     window.location=`/search/:${name}`
                   }else {document.getElementById("searchName").value = "";
-                  setName("");
+                  newName("");
                   window.location=`/`}            
                 }}
               value="Search"
@@ -54,11 +55,10 @@ function SearchBar(props) {
               type="button"
               class="btn btn-danger h3 ml-2"
                 onClick={() => {
-                  // getCharacter("");
                   window.location=`/`
                   if (document.getElementById("searchName").value) {
                     document.getElementById("searchName").value = "";
-                    setName("");
+                    newName("");
                   }}}
               id="back"
               value="Back"
@@ -67,7 +67,7 @@ function SearchBar(props) {
 
         </div>
       </div>
-      <div>{data && data.results.map((elem) => <Card {...elem} />)}</div>
+      <div>{data && data.results.map((elem) => <CardPublic{...elem} />)}</div>
     </>
   );
 }

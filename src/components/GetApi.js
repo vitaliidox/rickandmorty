@@ -3,15 +3,14 @@ import { useState, useEffect } from 'react';
 import CardPublic from './CardPublic';
 import './Style.css'
 
-function GetApi(props) {
+function GetApi() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [state, setState] = useState();
   const [pageNumber, setPageNumber] = useState(1)
  
   useEffect(() => {
-    setPageNumber(props)
-    console.log(props)
+  
     fetch(`https://rickandmortyapi.com/api/character/?page=${pageNumber}`)
       .then((res) => res.json())
       .then(

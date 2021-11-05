@@ -43,15 +43,33 @@ input{
 .cardOfCharacter{
     display: inline-block;
     width: 50%;
-    text-align: center;
-    background-color:rgba(156, 50, 50,0);    
+    text-align: center;   
 }
 
 .cardOfCharacter img:hover{
     transition: ease-in-out 0.3s;
     box-shadow: 4px 4px 8px black; 
+    transform: rotate(0.5deg);
+    transition-duration: 0.3s;
+    text-shadow: 2px 2px 2px black; 
 }
 
+
+.form-control:focus {
+    border-color: #FF0000;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+  }
+
+.ownInfo{
+    width: 40vw;
+    margin: auto;
+    text-align: center;
+    transition: ease-in-out 1s;
+}
+.ownInfo:hover{
+    letter-spacing: 2px;
+    word-spacing: 4px;
+}
 #OwnCard{
     min-height: 100vh;
     text-align: center;

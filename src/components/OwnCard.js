@@ -19,12 +19,14 @@ if(data){
     <>
       <div id="OwnCard">
         <img className="imgOwnCards" src={image} alt="character" />
-        <h2>
-          {name} ({status})
-        </h2>
-        <p>Species: {species}</p>
-        <p>Gender: {gender}</p>
-        <p>Location: {location.name}</p>
+        <div className="ownInfo">
+          <h2>
+            {name} ({status})
+          </h2>
+          <p>Species: {species}</p>
+          <p>Gender: {gender}</p>
+          <p>Location: {location.name}</p>
+        </div>
         <Link to="/">
         <button
          type="button"
