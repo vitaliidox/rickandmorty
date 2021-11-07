@@ -1,73 +1,62 @@
-import { React, useState} from "react";
-import Card from "./CardPublic";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import CardPublic from "./CardPublic";
 
 
-
-function SearchBar(props) {
-  
+function SearchBar({ newName }) {
   const [data, setData] = useState();
-  const [name, setName] = useState()
- 
-  function getCharacter() {
+  const [value, setValue] = useState("");
+
+  
+
+  function getCharacter(name) {
     fetch(`https://rickandmortyapi.com/api/character/?name=${name}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data);
-        });
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
   }
 
   return (
     <>
       <div class="container">
         <div class="row justify-content-center mb-4">
-
-          <div class="input-group input-group-lg col-4">
+          <div class="input-group input-group-lg col-7">
             <input
-                onChange={(e) => setName(e.target.value)}
-                id="searchName"
-                type="text"
-                class="form-control m-0"
-                placeholder="Type name of character"
-                aria-label="Username"
-                aria-describedby="inputGroup-sizing-default"
-              />
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              id="searchName"
+              type="text"
+              class="form-control m-0"
+              placeholder="Type name of character"
+              aria-label="Username"
+              aria-describedby="inputGroup-sizing-default"
+            />
           </div>
 
           <button
-              type="button"
-              class="btn btn-danger h3 ml-2"
-                onClick={() => {
-                  getCharacter(name);
-                  console.log(document.getElementById("searchName").value)
-                  if (document.getElementById("searchName").value  !== "") {
-                    window.location=`/search/:${name}`
-                  }else {document.getElementById("searchName").value = "";
-                  setName("");
-                  window.location=`/`}            
-                }}
-              value="Search"
-            >Search 
+            type="button"
+            class="btn btn-danger h3 ml-2"
+            onClick={() => {
+              value && getCharacter(value);
+              setValue("");
+            }}
+            value="Search">
+            Search
           </button>
 
           <button
-              type="button"
-              class="btn btn-danger h3 ml-2"
-                onClick={() => {
-                  // getCharacter("");
-                  window.location=`/`
-                  if (document.getElementById("searchName").value) {
-                    document.getElementById("searchName").value = "";
-                    setName("");
-                  }}}
-              id="back"
-              value="Back"
-            >Back
+            type="button"
+            class="btn btn-danger h3 ml-2"
+            onClick={() => {
+              window.location = `/`;
+            }}
+            id="back"
+            value="Back">
+            Back
           </button>
-
         </div>
       </div>
-      <div>{data && data.results.map((elem) => <Card {...elem} />)}</div>
+      <div>{data && data.results.map((elem) => <CardPublic {...elem} />)}</div>
     </>
   );
 }
